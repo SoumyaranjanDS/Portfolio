@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Soumyaranjan Sahoo — Portfolio</title>
+  <meta name="description" content="Soumyaranjan Sahoo — front-end developer. Dark modern portfolio with elegant animations." />
+
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      /* DARK THEME (default) */
+      --bg-0: #05060a;
+      --bg-1: #0b1020;
+      --accent-violet: #7c3aed;
+      --accent-cyan: #06b6d4;
+      --glass-bg: rgba(20,24,35,0.62);
+      --glass-border: rgba(255,255,255,0.04);
+      --text: #eaf2ff;
+      --muted: #99a6c0;
+      --transition: 1s cubic-bezier(.2,.9,.3,1);
+      --card-hover-glow: 0 28px 60px rgba(124,58,237,0.08);
+    }
+    /* LIGHT "warm" theme (cream + purple accent) */
+    .light-theme {
+      --bg-0: #fff9f4;
+      --bg-1: #fbf6f2;
+      --accent-violet: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --glass-bg: rgba(255,255,255,0.7);
+      --glass-border: rgba(0,0,0,0.06);
+      --text: #102033;
+      --muted: #4b5563;
+      --card-hover-glow: 0 28px 60px rgba(139,92,246,0.06);
+    }
+
+    /* base */
+    html,body { height:100%; }
+    body{
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin:0;
+      color:var(--text);
+      background: linear-gradient(180deg,var(--bg-0),var(--bg-1));
+      transition: background var(--transition), color var(--transition);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* animated slow overlay to shift hues slightly */
+    body::before{
+      content:"";
+      position:fixed; inset:0; z-index:0;
+      background: linear-gradient(120deg, rgba(124,58,237,0.06), rgba(6,182,212,0.04), rgba(124,58,237,0.05));
+      mix-blend-mode: overlay;
+      filter: blur(36px);
+      opacity:0.9;
+      animation: hueShift 20s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes hueShift {
+      0%{ transform:translate3d(0,0,0) rotate(0deg) scale(1); }
+      50%{ transform:translate3d(-6%,2%,0) rotate(6deg) scale(1.03); }
+      100%{ transform:translate3d(0,0,0) rotate(0deg) scale(1); }
+    }
+
+    /* glass card */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    /* floaty for avatar or decorative blobs */
+    @keyframes floaty { 0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)} }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+
+    /* reveal float-up with subtle glow (longer duration for cinematic feel) */
+    .reveal { opacity:0; transform:translateY(22px); transition: opacity 1s ease, transform 1s ease, box-shadow .9s; will-change: transform, opacity; }
+    .reveal.show { opacity:1; transform:translateY(0); box-shadow: var(--card-hover-glow); }
+
+    /* typed cursor */
+    .typed-cursor { display:inline-block; width:2px; height:1.2em; background:var(--text); margin-left:6px; animation: blink 900ms steps(2,end) infinite; vertical-align:middle; }
+    @keyframes blink { 0%,50%{opacity:1}51%,100%{opacity:0} }
+
+    /* buttons */
+    .btn { border-radius:10px; padding:0.62rem 1rem; font-weight:600; transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .35s, background .6s; display:inline-flex; gap:.6rem; align-items:center; }
+    .btn-primary { background: linear-gradient(90deg,var(--accent-violet),var(--accent-cyan)); color:#fff; box-shadow: 0 10px 30px rgba(6,182,212,0.06); }
+    .btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--text); }
+    .btn:hover { transform:translateY(-6px); box-shadow: 0 28px 80px rgba(6,182,212,0.06); }
+
+    /* nav underline animation */
+    .nav-link { position:relative; color:var(--text); padding:.25rem .45rem; transition: color .4s; }
+    .nav-link::after{ content:""; position:absolute; left:50%; bottom:-8px; transform:translateX(-50%) scaleX(0); width:60%; height:2px; border-radius:2px; background:linear-gradient(90deg,var(--accent-violet),var(--accent-cyan)); transform-origin:center; transition: transform .45s; opacity:0; }
+    .nav-link.active::after { transform:translateX(-50%) scaleX(1); opacity:1; }
+
+    /* project card hover gradient overlay */
+    .card { border-radius:12px; overflow:hidden; position:relative; transition: transform var(--transition), box-shadow var(--transition); }
+    .card:hover { transform: translateY(-8px); box-shadow: var(--card-hover-glow); }
+    .card .overlay { position:absolute; inset:0; opacity:0; transition: opacity .9s ease; pointer-events:none; background:linear-gradient(120deg, rgba(124,58,237,0.06), rgba(6,182,212,0.04)); }
+    .card:hover .overlay { opacity:1; }
+
+    /* section sweep highlight when entering */
+    .sweep { position:relative; overflow:visible; }
+    .sweep::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06), rgba(255,255,255,0.03)); transform:translateX(-120%); opacity:0; pointer-events:none; transition: transform .95s ease, opacity .95s; }
+    .sweep.revealed::after { transform:translateX(120%); opacity:1; }
+
+    /* progress bar */
+    #progress { position:fixed; left:0; top:0; height:3px; width:0; z-index:60; background: linear-gradient(90deg,var(--accent-violet),var(--accent-cyan)); transition: width .12s linear; }
+
+    /* back to top */
+    .to-top { position:fixed; z-index:60; right:18px; bottom:22px; width:48px; height:48px; border-radius:999px; display:grid; place-items:center; background:linear-gradient(90deg,var(--accent-violet),var(--accent-cyan)); color:#041023; box-shadow:0 18px 40px rgba(6,182,212,0.06); transform:translateY(0); transition: opacity .4s, transform .4s; }
+    .to-top.hidden { opacity:0; pointer-events:none; transform: translateY(10px); }
+
+    /* ensure main content is above the background overlay */
+    header, main, footer { position:relative; z-index:10; }
+
+    /* responsive tweaks */
+    @media (max-width:768px){
+      .nav-link{ display:block; padding:.5rem; }
+      .btn{ padding:.5rem .8rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- scroll progress -->
+  <div id="progress" role="progressbar" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 w-full z-40">
+    <div class="w-full backdrop-blur-sm bg-black/20 border-b border-white/6">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="#home" class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-lg bg-gradient-to-br from-[#5b21b6] to-[#0891b2] flex items-center justify-center text-white font-bold">SS</div>
+          <span class="text-sm font-semibold">Soumyaranjan Sahoo</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="#home" class="nav-link" data-target="home">Home</a>
+          <a href="#about" class="nav-link" data-target="about">About</a>
+          <a href="#projects" class="nav-link" data-target="projects">Projects</a>
+          <a href="#resume" class="nav-link" data-target="resume">Resume</a>
+          <a href="#contact" class="nav-link" data-target="contact">Contact</a>
+          <a href="https://github.com/SoumyaranjanDS" target="_blank" rel="noopener" class="ml-2 text-sm px-3 py-1 border rounded-md">GitHub</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <button id="menuBtn" class="md:hidden glass px-3 py-2 rounded-md">Menu</button>
+          <button id="themeToggle" class="glass px-3 py-2 rounded-md">Theme</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- mobile drawer -->
+  <div id="mobileDrawer" class="fixed inset-0 z-50 hidden">
+    <div id="drawerBg" class="absolute inset-0 bg-black/50"></div>
+    <aside class="absolute right-0 top-0 w-72 h-full p-6 glass">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-[#5b21b6] to-[#0891b2] flex items-center justify-center text-white font-bold">SS</div>
+          <div class="text-sm font-semibold">Menu</div>
+        </div>
+        <button id="closeDrawer">Close</button>
+      </div>
+      <nav class="flex flex-col gap-4">
+        <a href="#home" class="nav-link" data-target="home">Home</a>
+        <a href="#about" class="nav-link" data-target="about">About</a>
+        <a href="#projects" class="nav-link" data-target="projects">Projects</a>
+        <a href="#resume" class="nav-link" data-target="resume">Resume</a>
+        <a href="#contact" class="nav-link" data-target="contact">Contact</a>
+        <a href="https://github.com/SoumyaranjanDS" target="_blank" class="mt-4 px-3 py-2 border rounded-md text-center">GitHub</a>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- MAIN -->
+  <main class="pt-28 pb-20">
+    <!-- HERO -->
+    <section id="home" class="min-h-screen flex items-center sweep">
+      <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-semibold leading-tight">
+            <span id="typed-line">Hi — I am Soumyaranjan Sahoo</span><span class="typed-cursor" aria-hidden="true"></span>
+          </h1>
+
+          <p class="mt-4 text-lg max-w-prose text-slate-200 reveal">I build dark-themed, modern and animated web experiences using HTML, JavaScript and Tailwind CSS. I focus on performance, accessibility and delightful micro-interactions.</p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-ghost">Contact Me</a>
+            <a href="https://github.com/SoumyaranjanDS" target="_blank" class="btn btn-ghost">View GitHub</a>
+          </div>
+
+          <div class="mt-8 grid grid-cols-2 gap-3 max-w-md">
+            <div class="p-4 glass rounded-lg reveal card">
+              <h4 class="font-semibold">MCA Student</h4>
+              <p class="text-sm mt-2 text-slate-200">Pursuing advanced computing studies and practical projects.</p>
+            </div>
+            <div class="p-4 glass rounded-lg reveal card">
+              <h4 class="font-semibold">Open Source</h4>
+              <p class="text-sm mt-2 text-slate-200">Active on GitHub with experiments and demos.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center md:justify-end relative">
+          <div class="w-64 h-64 rounded-full glass flex items-center justify-center floaty" style="box-shadow: 0 30px 60px rgba(6,182,212,0.04);">
+            <img src="https://github.com/SoumyaranjanDS.png" alt="avatar" class="w-28 h-28 rounded-full border-4 border-white/6" />
+          </div>
+
+          <div aria-hidden="true" class="hidden md:block absolute -left-20 -bottom-12 w-48 h-48 rounded-full" style="background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.08), transparent 30%); filter: blur(20px);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="min-h-screen py-20 sweep">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold">About Me</h2>
+        <p class="mt-3 text-slate-200 reveal max-w-prose">MCA student focused on front-end development, accessibility, and building production-ready interfaces.</p>
+
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-6 glass rounded-lg reveal card">
+            <h3 class="font-semibold">Design</h3>
+            <p class="text-sm mt-2 text-slate-200">Clean UI, accessible components, and thoughtful interaction design.</p>
+          </div>
+          <div class="p-6 glass rounded-lg reveal card">
+            <h3 class="font-semibold">Problem Solving</h3>
+            <p class="text-sm mt-2 text-slate-200">Practical algorithms and pragmatic engineering.</p>
+          </div>
+          <div class="p-6 glass rounded-lg reveal card">
+            <h3 class="font-semibold">Collaboration</h3>
+            <p class="text-sm mt-2 text-slate-200">Git-centered workflow and team communication.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="min-h-screen py-20 sweep">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold">Projects</h2>
+        <p class="mt-2 text-slate-200 reveal max-w-prose">Selected projects with live demos and source code links.</p>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Web Bank -->
+          <article class="card">
+            <div class="glass p-5 rounded-lg h-full flex flex-col justify-between reveal">
+              <div>
+                <h3 class="text-xl font-semibold">Web Bank</h3>
+                <p class="text-sm mt-2 text-slate-200">Banking UI demo with interactive account actions and responsive behavior.</p>
+              </div>
+              <div class="mt-6 flex gap-3">
+                <a href="https://web-bank-soumya.netlify.app/#" target="_blank" class="btn btn-primary">Live Demo</a>
+                <a href="https://github.com/SoumyaranjanDS/Web-Based-Banking-System" target="_blank" class="btn btn-ghost">View Code</a>
+              </div>
+            </div>
+            <div class="overlay"></div>
+          </article>
+
+          <!-- Hit Bubble JS -->
+          <article class="card">
+            <div class="glass p-5 rounded-lg h-full flex flex-col justify-between reveal">
+              <div>
+                <h3 class="text-xl font-semibold">Hit Bubble JS</h3>
+                <p class="text-sm mt-2 text-slate-200">Interactive bubble-hitting game built with vanilla JavaScript.</p>
+              </div>
+              <div class="mt-6 flex gap-3">
+                <a href="https://hit-bubble-js.netlify.app/" target="_blank" class="btn btn-primary">Live Demo</a>
+                <a href="https://github.com/SoumyaranjanDS/Hit-Bubble-Game" target="_blank" class="btn btn-ghost">View Code</a>
+              </div>
+            </div>
+            <div class="overlay"></div>
+          </article>
+
+          <!-- Pop Hit -->
+          <article class="card">
+            <div class="glass p-5 rounded-lg h-full flex flex-col justify-between reveal">
+              <div>
+                <h3 class="text-xl font-semibold">Pop Hit</h3>
+                <p class="text-sm mt-2 text-slate-200">Pop Bubbles interactive demo with responsive UI and animations Game.</p>
+              </div>
+              <div class="mt-6 flex gap-3">
+                <a href="https://pop-hit.netlify.app/" target="_blank" class="btn btn-primary">Live Demo</a>
+                <a href="https://github.com/SoumyaranjanDS/Pop-Hit-JS-Game" target="_blank" class="btn btn-ghost">View Code</a>
+              </div>
+            </div>
+            <div class="overlay"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume" class="min-h-screen py-20 sweep">
+      <div class="max-w-4xl mx-auto px-6">
+        <h2 class="text-3xl font-bold">Resume</h2>
+        <p class="mt-2 text-slate-200 reveal">Selected experience and education below.</p>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="glass p-6 rounded-lg reveal card">
+            <h4 class="font-semibold">Experience</h4>
+            <ul class="mt-3 text-sm space-y-3 text-slate-200">
+              <li><strong>Front-end Developer</strong> — Personal projects and freelance (2024 — Present)</li>
+              <li><strong>Student / Developer</strong> — Academic projects (2024 — Present)</li>
+            </ul>
+          </div>
+
+          <div class="glass p-6 rounded-lg reveal card">
+            <h4 class="font-semibold">Education</h4>
+            <p class="mt-2 text-sm text-slate-200">B.Sc / Banki Autonomous College (2023-2025) <br><br> MCA - Trident Academy of Creative Technology (2025-2027)</p>
+          </div>
+        </div>
+
+        <div class="mt-6 glass p-4 rounded-lg reveal card">
+          <h4 class="font-semibold">Technical skills</h4>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full glass">C</span>
+            <span class="px-3 py-1 rounded-full glass">Python (basic)</span>
+            <span class="px-3 py-1 rounded-full glass">SQL</span>
+            <span class="px-3 py-1 rounded-full glass">HTML5</span>
+            <span class="px-3 py-1 rounded-full glass">CSS</span>
+            <span class="px-3 py-1 rounded-full glass">JavaScript</span>
+            <span class="px-3 py-1 rounded-full glass">Tailwind CSS</span>
+            <span class="px-3 py-1 rounded-full glass">GitHub</span>
+            <span class="px-3 py-1 rounded-full glass">VS Code</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="min-h-screen py-20 sweep">
+      <div class="max-w-3xl mx-auto px-6">
+        <h2 class="text-3xl font-bold">Contact</h2>
+        <p class="mt-2 text-slate-200 reveal">Interested in working together? Send a message or email me directly.</p>
+
+        <div class="mt-6 glass p-6 rounded-lg reveal card">
+          <form id="contactForm" class="grid grid-cols-1 gap-4">
+            <input name="name" placeholder="Your name" required class="p-3 rounded-md bg-transparent border border-white/6 text-slate-100" />
+            <input name="email" type="email" placeholder="Email" required class="p-3 rounded-md bg-transparent border border-white/6 text-slate-100" />
+            <input name="subject" placeholder="Subject" class="p-3 rounded-md bg-transparent border border-white/6 text-slate-100" />
+            <textarea name="message" rows="5" placeholder="Message" class="p-3 rounded-md bg-transparent border border-white/6 text-slate-100"></textarea>
+            <div class="flex justify-end">
+              <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+          </form>
+
+          <p class="mt-3 text-xs text-slate-300">This form is a demo. Backend integration required for live sending.</p>
+          <p class="mt-1 text-xs text-slate-300">Email: soumyaranjansahoo97292@gmail.com • Location: Banki, Cuttack, Odisha</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- back to top -->
+  <button id="toTop" class="to-top hidden" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+  </button>
+
+  <footer class="mt-16 mb-6 text-center text-slate-300">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="text-sm">© <span id="year"></span> Soumyaranjan Sahoo — Built with Tailwind CSS</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
