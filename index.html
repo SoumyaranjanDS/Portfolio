@@ -28,13 +28,13 @@
     }
     /* LIGHT "warm" theme (cream + purple accent) */
     .light-theme {
-      --bg-0: #fff9f4;
-      --bg-1: #fbf6f2;
+      --bg-0: #000000;
+      --bg-1: #25373b;
       --accent-violet: #8b5cf6;
       --accent-cyan: #06b6d4;
-      --glass-bg: rgba(255,255,255,0.7);
+      --glass-bg: rgba(5, 9, 54, 0.7);
       --glass-border: rgba(0,0,0,0.06);
-      --text: #102033;
+      --text: #ffffff;
       --muted: #4b5563;
       --card-hover-glow: 0 28px 60px rgba(139,92,246,0.06);
     }
@@ -302,9 +302,11 @@
     <!-- RESUME -->
     <section id="resume" class="min-h-screen py-20 sweep">
       <div class="max-w-4xl mx-auto px-6">
+        <div class="flex">
         <h2 class="text-3xl font-bold">Resume</h2>
+        <a href="https://drive.google.com/file/d/1kkMJ36C9JCSMIw8-_cQDnr42OGWd7GOE/view?usp=drive_link" target="_blank" class="btn btn-primary ml-6">View</a>
+        </div>
         <p class="mt-2 text-slate-200 reveal">Selected experience and education below.</p>
-
         <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="glass p-6 rounded-lg reveal card">
             <h4 class="font-semibold">Experience</h4>
@@ -368,11 +370,10 @@
 
   <footer class="mt-16 mb-6 text-center text-slate-300">
     <div class="max-w-6xl mx-auto px-6">
-      <p class="text-sm">© <span id="year"></span> Soumyaranjan Sahoo — Built with Bare Hands</p>
+      <p class="text-sm ">© <span id="year"></span> Developed by <a href="https://github.com/SoumyaranjanDS" class="italic">Soumyaranjan</a></p>
     </div>
   </footer>
 
   <script src="app.js"></script>
 </body>
 </html>
-
