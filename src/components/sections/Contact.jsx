@@ -349,7 +349,6 @@ export function Contact() {
                       ref={inputRef}
                       type={STEPS[currentStep].type}
                       value={inputValue}
-                      autoFocus
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
