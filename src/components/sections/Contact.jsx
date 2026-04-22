@@ -21,7 +21,6 @@ export function Contact() {
   const [inputValue, setInputValue] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBooted, setIsBooted] = useState(false);
-  const terminalEndRef = useRef(null);
   const inputRef = useRef(null);
   const hasInited = useRef(false);
 
@@ -46,8 +45,12 @@ export function Contact() {
     bootSequence();
   }, []);
 
+  const terminalContainerRef = useRef(null);
+
   const scrollToBottom = () => {
-    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (terminalContainerRef.current) {
+      terminalContainerRef.current.scrollTop = terminalContainerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
@@ -293,6 +296,7 @@ export function Contact() {
 
           {/* ── Terminal body ── */}
           <div
+            ref={terminalContainerRef}
             className="term-scroll term-body flex-1 overflow-y-auto p-3 sm:p-5 terminal-font text-xs sm:text-sm relative"
             style={{ color: '#C9C5BE' }}
           >
@@ -383,8 +387,6 @@ export function Contact() {
                   press <span style={{ color: 'rgba(255,107,26,0.5)' }}>ENTER</span> to continue
                 </p>
               )}
-
-              <div ref={terminalEndRef} className="h-2" />
             </div>
           </div>
 
