@@ -26,13 +26,13 @@ const servicesData = [
 
 export function Services() {
   return (
-    <section id="services" className="services-section bg-white py-20 md:py-32 relative text-black overflow-hidden">
-      <div className="w-full px-6 md:px-12 lg:px-24 mx-auto">
+    <section id="services" className="services-section h-[90vh] flex items-center justify-between bg-white py-20 md:py-32 relative text-black overflow-hidden">
+      <div className="w-full px-10 md:px-12 lg:px-24 mx-auto">
         
         {/* Subtle Label */}
         <div className="w-full mb-12 md:mb-16" data-aos="fade-up">
           <div className="font-sans text-xs font-bold tracking-widest uppercase text-black/40 border-b border-black/10 pb-4">
-            [04] Core Offerings
+             Offerings
           </div>
         </div>
 
@@ -49,7 +49,7 @@ export function Services() {
               <div className="service-bg-fill absolute inset-0 bg-primary translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.3,1)] z-0"></div>
 
               {/* Left Group: Number + Title */}
-              <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 relative z-10 w-full md:w-[45%] lg:w-[40%] xl:w-[35%] shrink-0">
+              <div className="flex flex-col px-5 md:flex-row md:items-center gap-4 md:gap-8 relative z-10 w-full md:w-[45%] lg:w-[40%] xl:w-[35%] shrink-0">
                 <span className="font-mono text-xl md:text-2xl text-primary group-hover:text-white transition-colors duration-400">
                   {service.num}
                 </span>
