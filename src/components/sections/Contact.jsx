@@ -237,7 +237,8 @@ export function Contact() {
 
       <section
         id="contact"
-        className="min-h-screen bg-[#080807] flex flex-col items-center justify-center px-3 py-10 sm:px-6 sm:py-16 selection:bg-[#FF6B1A] selection:text-black"
+        className="min-h-screen bg-[#080807] flex flex-col items-center justify-center selection:bg-[#FF6B1A] selection:text-black"
+        style={{ paddingLeft: 'clamp(1.5rem, 5vw, 4rem)', paddingRight: 'clamp(1.5rem, 5vw, 4rem)', paddingTop: 'clamp(2.5rem, 6vw, 4rem)', paddingBottom: 'clamp(2.5rem, 6vw, 4rem)' }}
         onClick={focusInput}
       >
 

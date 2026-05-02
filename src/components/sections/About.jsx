@@ -30,19 +30,19 @@ export function About() {
   const blocks = useMemo(() => [
     {
       type: 'label',
-      text: 'Know About Me',
+      text: 'Professional Background',
     },
     {
       type: 'headline',
-      text: 'I build things that exist at the edge of design and engineering — where form meets function and every pixel has a purpose.',
+      text: 'I bridge the gap between creative design and complex system architecture, focusing on scalable and performant digital solutions.',
     },
     {
       type: 'body',
-      text: 'Started with curiosity and a broken laptop. My first line of code was a Python print statement — and I\'ve been hooked on building ever since. From fixing bugs at 2 AM to shipping full-stack apps, the process of creating something from nothing is what drives me.',
+      text: 'My approach to development is rooted in technical precision and user-centric design. I specialize in building full-stack applications that prioritize performance and accessibility, ensuring that complex back-end systems integrate seamlessly with intuitive interfaces.',
     },
     {
       type: 'body',
-      text: 'Currently pursuing MCA at Trident Academy of Creative Technology, Bhubaneswar. My work sits at the intersection of full-stack development and machine learning — building systems that are both technically robust and genuinely beautiful.',
+      text: 'Currently pursuing an MCA at Trident Academy of Creative Technology, I balance academic theory with practical implementation. My work involves integrating machine learning models into web ecosystems, transforming data into functional tools through clean and maintainable code.',
     },
   ], []);
 

@@ -87,7 +87,7 @@ export function Navbar() {
               fontFamily: 'var(--font-serif)',
               fontWeight: 600,
               fontSize: '1.125rem',
-              color: '#ffffff',
+              color: '#111111',
               textDecoration: 'none',
               letterSpacing: '-0.02em',
               transition: 'color 0.4s ease',
@@ -105,21 +105,21 @@ export function Navbar() {
                 onClick={(e) => handleNav(e, link.href)}
                 className="nav-link"
                 style={{
-                  color: 'rgba(255,255,255,0.8)',
+                  color: 'rgba(0,0,0,0.5)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#ffffff';
+                  e.currentTarget.style.color = '#111111';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.8)';
+                  e.currentTarget.style.color = 'rgba(0,0,0,0.5)';
                 }}
               >
                 {link.label}
               </a>
             ))}
             {/* Added Social Links */}
-            <a href="https://linkedin.com/in/soumyaranjansahoo97" target="_blank" rel="noreferrer" className="nav-link" style={{ color: 'rgba(255,255,255,0.8)' }}>LinkedIn</a>
-            <a href="https://github.com/SoumyaranjanDS" target="_blank" rel="noreferrer" className="nav-link" style={{ color: 'rgba(255,255,255,0.8)' }}>GitHub</a>
+            <a href="https://linkedin.com/in/soumyaranjansahoo97" target="_blank" rel="noreferrer" className="nav-link" style={{ color: 'rgba(0,0,0,0.5)' }}>LinkedIn</a>
+            <a href="https://github.com/SoumyaranjanDS" target="_blank" rel="noreferrer" className="nav-link" style={{ color: 'rgba(0,0,0,0.5)' }}>GitHub</a>
             <a href="/DEV_Soumyaranjan.pdf" download className="nav-link" style={{ color: '#FF6B00', fontWeight: 'bold' }}>CV</a>
           </div>
 
@@ -131,11 +131,11 @@ export function Navbar() {
             className="nav-mobile-btn"
           >
             <span className={`hamburger-line ${mobileOpen ? 'hamburger-open-1' : ''}`}
-              style={{ backgroundColor: '#ffffff' }} />
+              style={{ backgroundColor: '#111111' }} />
             <span className={`hamburger-line ${mobileOpen ? 'hamburger-open-2' : ''}`}
-              style={{ backgroundColor: '#ffffff' }} />
+              style={{ backgroundColor: '#111111' }} />
             <span className={`hamburger-line ${mobileOpen ? 'hamburger-open-3' : ''}`}
-              style={{ backgroundColor: '#ffffff' }} />
+              style={{ backgroundColor: '#111111' }} />
           </button>
         </div>
       </nav>
