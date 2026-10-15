@@ -3,6 +3,46 @@ import { useEffect, useRef, useState } from 'react';
 const projectsData = [
   {
     id: 1,
+    title: 'Bangalore Rapids',
+    subtitle: 'B2B/B2C Logistics & Courier Platform',
+    description: 'Built a multi-role courier and logistics platform with JWT/RBAC security, automated dispatch workflows, real-time driver tracking, and geospatial queries for one-to-one parcel deliveries. Integrated Stripe payments and ACID transactions with Docker containerization and CI/CD pipelines, cutting deployment cycle times by 40%.',
+    stack: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Socket.IO', 'Stripe', 'Docker', 'Geospatial'],
+    liveLink: 'https://bangalorerapid.online/',
+    repoLink: null,
+    image: '/ban-rapid.png'
+  },
+  {
+    id: 2,
+    title: 'SOLITX',
+    subtitle: 'Scalable Distributed Social Platform',
+    description: 'Developed a high-concurrency social platform engineered for 20K+ DAU scalability, complete with secure authentication, user profiles, posts, interactions, real-time notifications, and personalized feeds. Optimized PostgreSQL transactions, indexing, and query latency while deploying cloud infrastructure with AWS EC2, S3, CloudFront CDN, and Load Balancing.',
+    stack: ['React', 'Node.js', 'Express.js', 'PostgreSQL', 'AWS EC2', 'AWS S3', 'CloudFront', 'Redis'],
+    liveLink: 'https://solitx.soumya.site',
+    repoLink: 'https://github.com/SoumyaranjanDS/solitx',
+    image: '/solitx.png'
+  },
+  {
+    id: 3,
+    title: 'CRMISA',
+    subtitle: 'Pan-African Trade & Logistics Academy',
+    description: 'Designed and engineered an African international trade and customs compliance education portal. Implemented complete course catalog workflows, student certification pipelines, regional payment gateways, and high-conversion responsive marketing architecture for cross-border logistics training.',
+    stack: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'REST APIs', 'PostgreSQL'],
+    liveLink: 'https://crmisa.co.za/',
+    repoLink: null,
+    image: '/crmisa.png'
+  },
+  {
+    id: 4,
+    title: 'Yoga Prana Fitness',
+    subtitle: 'Holistic Wellness & Fitness Portal',
+    description: 'Built a modern, high-conversion marketing platform and web application for an integrated yoga, mindfulness, and functional fitness app ecosystem. Features interactive class schedules, session reservations, trainer directories, wellness membership tiers, and seamless responsive design.',
+    stack: ['React', 'Tailwind CSS', 'Modern UI/UX', 'SEO Optimization', 'REST APIs'],
+    liveLink: 'https://yogapranafitness.com/',
+    repoLink: null,
+    image: '/yoga.png'
+  },
+  {
+    id: 5,
     title: 'Veda AI',
     subtitle: 'AI-Assisted Healthcare Triage Platform',
     description: 'Built an AI-assisted healthcare platform for symptom triage, private concerns, and doctor connection. Developed seamless patient and doctor dashboards with comprehensive reports, real-time notifications, and structured consultation workflows.',
@@ -12,7 +52,7 @@ const projectsData = [
     image: '/vedaai.png'
   },
   {
-    id: 2,
+    id: 6,
     title: 'Nexus.sys',
     subtitle: 'Job Finder Aggregator',
     description: 'Built a full-stack job aggregator using Python scraping to collect and display job listings from external platforms. Implemented REST APIs, pagination, filtering, and local bookmarking for an improved job discovery experience. Deployed on Render and Netlify.',
@@ -22,7 +62,7 @@ const projectsData = [
     image: '/nexus.png'
   },
   {
-    id: 3,
+    id: 7,
     title: 'RetainQ',
     subtitle: 'Customer Prediction System',
     description: 'Built a full-stack ML prediction platform featuring an interactive dashboard for visualizing customer churn risk. Achieved 84.08% ROC AUC and 77.71% test accuracy using Logistic Regression algorithms to accurately forecast customer retention.',
@@ -32,7 +72,7 @@ const projectsData = [
     image: '/retainq.png'
   },
   {
-    id: 4,
+    id: 8,
     title: 'Aura',
     subtitle: 'DSA Based Code Editor',
     description: 'A high-performance algorithmic code editor focused on Data Structures and Algorithms. Designed to compile and execute complex logic efficiently with a highly immersive development interface.',
@@ -250,7 +290,7 @@ export function Projects() {
                   onClick={() => setModalProj(proj)}
                 >
                   <div className="lp-item-header">
-                    <span className="lp-item-num">0{proj.id}</span>
+                    <span className="lp-item-num">{String(proj.id).padStart(2, '0')}</span>
                     <h2 className="lp-item-title">{proj.title}</h2>
                     <span className="lp-item-arrow">→</span>
                   </div>
@@ -314,9 +354,15 @@ export function Projects() {
                   <a href={modalProj.liveLink} target="_blank" rel="noreferrer" className="modal-btn modal-btn-primary">
                     View Live Site
                   </a>
-                  <a href={modalProj.repoLink} target="_blank" rel="noreferrer" className="modal-btn modal-btn-secondary">
-                    GitHub Repo
-                  </a>
+                  {modalProj.repoLink ? (
+                    <a href={modalProj.repoLink} target="_blank" rel="noreferrer" className="modal-btn modal-btn-secondary">
+                      GitHub Repo
+                    </a>
+                  ) : (
+                    <span className="modal-badge-status">
+                      <span className="live-dot" /> Live Production
+                    </span>
+                  )}
                 </div>
               </div>
             </>
@@ -899,6 +945,37 @@ export function Projects() {
 
         .modal-btn-secondary:hover {
           background: rgba(0,0,0,0.05);
+        }
+
+        .modal-badge-status {
+          font-family: var(--font-sans);
+          font-size: 0.8125rem;
+          font-weight: 600;
+          color: #15803d;
+          background: rgba(22, 163, 74, 0.08);
+          border: 1px solid rgba(22, 163, 74, 0.2);
+          border-radius: 8px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 16px 20px;
+          flex: 1;
+          letter-spacing: 0.02em;
+        }
+
+        .live-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #16a34a;
+          box-shadow: 0 0 8px #16a34a;
+          animation: pulseDot 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseDot {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.35; transform: scale(0.8); }
         }
 
         /* ===== RESPONSIVE overrides ===== */

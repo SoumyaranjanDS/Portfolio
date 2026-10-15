@@ -25,9 +25,9 @@ const Footer = () => {
             <li><a href="#projects" className="hover:text-[#FF6B00] transition-colors">Projects</a></li>
             <li><a href="#contact" className="hover:text-[#FF6B00] transition-colors">Contact</a></li>
             <li className="hidden md:block text-white/10">|</li>
-            <li><a href="https://linkedin.com/in/soumyaranjansahoo97" target="_blank" rel="noreferrer" className="hover:text-[#FF6B00] transition-colors">LinkedIn</a></li>
+            <li><a href="https://linkedin.com/in/soumyafde" target="_blank" rel="noreferrer" className="hover:text-[#FF6B00] transition-colors">LinkedIn</a></li>
             <li><a href="https://github.com/SoumyaranjanDS" target="_blank" rel="noreferrer" className="hover:text-[#FF6B00] transition-colors">GitHub</a></li>
-            <li><a href="/DEV_Soumyaranjan.pdf" download className="text-[#FF6B00] hover:underline transition-all">CV</a></li>
+            <li><a href="/Soumyaranjan-Full stack Dev.pdf" download className="text-[#FF6B00] hover:underline transition-all">CV</a></li>
           </ul>
         </nav>
       </div>

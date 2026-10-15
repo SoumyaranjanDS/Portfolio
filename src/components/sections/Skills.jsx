@@ -7,6 +7,7 @@ export function Skills() {
   const [isClosing, setIsClosing] = useState(false);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
+  const windowRef = useRef(null);
   const dragRef = useRef({ dragging: false, startX: 0, startY: 0 });
 
   const trashFolder = {
@@ -75,6 +76,7 @@ export function Skills() {
   };
 
   const closeWindow = () => {
+    if (isClosing) return;
     playClick('close');
     setIsClosing(true);
     setTimeout(() => {
@@ -82,6 +84,37 @@ export function Skills() {
       setIsClosing(false);
     }, 250);
   };
+
+  // Close folder window when clicking outside or pressing Escape
+  useEffect(() => {
+    if (!openFolder || isClosing) return;
+
+    const handleClickOutside = (e) => {
+      if (windowRef.current && windowRef.current.contains(e.target)) {
+        return;
+      }
+      if (e.target.closest('.os-folder') || e.target.closest('.os-dock-item')) {
+        return;
+      }
+      closeWindow();
+    };
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        closeWindow();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [openFolder, isClosing]);
 
   // Drag handling for the window title bar
   const onDragStart = (e) => {
@@ -169,6 +202,7 @@ export function Skills() {
             {/* Open window */}
             {openFolder && (
               <div
+                ref={windowRef}
                 className={`os-window ${isClosing ? 'os-window-close' : 'os-window-open'}`}
                 style={{
                   left: `${windowPos.x}px`,
